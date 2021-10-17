@@ -14,10 +14,16 @@ def create_context(config=Config):
     app = create_app()
     app.app_context().push()
 
-
-def create_random_data():
+def create_fake_users(n_users):
     create_context()
-    db.create_all()
+
+
+def create_random_data(create_db=False, drop_all=False):
+    create_context()
+    if drop_all:
+        db.drop_all()
+    if create_db:
+        db.create_all()
     u1 = User(
         username="kevin" + str(datetime.datetime.utcnow())
     )
@@ -30,4 +36,6 @@ def create_random_data():
 # >>> db.create_all()
 
 if __name__ == "__main__":
-    create_random_data() 
+    # create_random_data() 
+    from app import db
+    print(dir(db))

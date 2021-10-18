@@ -15,9 +15,6 @@ def create_context(config=Config):
     app = create_app()
     app.app_context().push()
 
-def create_fake_users(n_users):
-    create_context()
-
 def create_random_data(create_db=False, drop_all=False):
     create_context()
     faker = Faker()
@@ -52,19 +49,15 @@ def create_random_data(create_db=False, drop_all=False):
         print(user, n1, n2)
     db.session.commit()
 
-# >>> from app import db
-# >>> from app.models import User
-# >>> db.create_all()
 
-# OR...
-
+    
 # >>> from create_data import create_random_data
 # >>> create_random_data(create_db=False, drop_all=False)
 
 # Example of querying form command line
 # >>> u1 = User.query.all()[0]
 # >>> u1.username
-# 'Hunter Cochran_1'
+# 'Sabrina Rice1'
 # >>> nums = u1.numbers
 # >>> for num in nums:
 # ...     print(num)

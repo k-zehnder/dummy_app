@@ -12,7 +12,7 @@ class User(db.Model):
 
 class Number(db.Model):
   id = db.Column(db.Integer, primary_key=True)
-  digits = db.Column(db.Integer, nullable=False, unique=True)
+  digits = db.Column(db.String(124), nullable=False, unique=False)
 # (??)timezone = db.Column(function for finding timezone from number)
 
   user_id = db.Column(db.ForeignKey('user.id'))

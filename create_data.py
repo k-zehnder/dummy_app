@@ -18,7 +18,6 @@ def create_context(config=Config):
 def create_fake_users(n_users):
     create_context()
 
-
 def create_random_data(create_db=False, drop_all=False):
     create_context()
     faker = Faker()
@@ -28,9 +27,9 @@ def create_random_data(create_db=False, drop_all=False):
         db.create_all()
     
     for idx in range(1, 5001):
-        name = faker.name()
+        name = faker.name() + str(idx)
         u1 = User(
-            username=f"{name}_{idx}"
+            username=name
         )
         print(u1)
         db.session.add(u1)
@@ -38,28 +37,20 @@ def create_random_data(create_db=False, drop_all=False):
 
     users = User.query.all()
     for user in users:
-        num = faker.phone_number()
+        num = faker.phone_number() + str(idx)
         n1 = Number(
-            digits=str(num) + str(idx),
+            digits=num,
             user_id=user.id
             )
         db.session.add(n1)
 
         n2 = Number(
-            digits=str(num)[::-1] + str(idx),
+            digits=str(num)[::-1],
             user_id=user.id
         )
         db.session.add(n2)
         print(user, n1, n2)
     db.session.commit()
-
-
-if __name__ == "__main__":
-    # create_random_data() 
-    from app import db
-    print(dir(db))
-
-
 
 # >>> from app import db
 # >>> from app.models import User

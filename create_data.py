@@ -15,9 +15,6 @@ def create_context(config=Config):
     app = create_app()
     app.app_context().push()
 
-def create_fake_users(n_users):
-    create_context()
-
 def create_random_data(create_db=False, drop_all=False):
     create_context()
     faker = Faker()

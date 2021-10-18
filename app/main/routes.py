@@ -11,4 +11,4 @@ def index():
 @bp.route("/users")
 def users():
     users = User.query.all()
-    return f"<h3>one user\nusername: {users[0].username}"
+    return f"<h3>one user...username: {users[0].username}"

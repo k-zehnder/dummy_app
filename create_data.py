@@ -9,6 +9,9 @@ import config as Config
 basedir = os.path.abspath(os.path.dirname(__file__))
 load_dotenv(os.path.join(basedir, '.env'))
 
+# >>> from create_data import create_random_data
+# >>> create_random_data(create_data=False, drop_all=False)
+
 def create_context(config=Config):
     # create app context and push it
     app = create_app()
@@ -22,13 +25,16 @@ def create_random_data(create_db=False, drop_all=False):
     create_context()
     if drop_all:
         db.drop_all()
-    if create_db:
         db.create_all()
-    u1 = User(
-        username="kevin" + str(datetime.datetime.utcnow())
-    )
-    print(u1)
-    db.session.add(u1)
+    elif create_db:
+        db.create_all()
+    
+    for idx in range(1, 5001):
+        u1 = User(
+            username=f"user_{idx}"
+        )
+        print(u1)
+        db.session.add(u1)
     db.session.commit()
 
 # >>> from app import db

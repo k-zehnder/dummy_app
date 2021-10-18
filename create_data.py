@@ -28,7 +28,7 @@ def create_random_data(create_db=False, drop_all=False):
         db.create_all()
     
     for idx in range(1, 5001):
-        name, num = faker.name(), faker.phone_number()
+        name, num1, num2 = faker.name(), faker.phone_number(), faker.phone_number()
         u1 = User(
             username=f"{name}_{idx}"
         )
@@ -38,9 +38,18 @@ def create_random_data(create_db=False, drop_all=False):
 
     users = User.query.all()
     for user in users:
-        n = Number(digits=str(num))
-        db.session.add(n)
-        print(n)
+        n1 = Number(
+            digits=(str(num1) + str(idx)),
+            user_id=user.id
+            )
+        db.session.add(n1)
+
+        n2 = Number(
+            digits=(str(num2) + str(idx)),
+            user_id=user.id
+        )
+        db.session.add(n2)
+        print(user, n1, n2)
     db.session.commit()
 
 

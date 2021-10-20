@@ -8,7 +8,6 @@ from app.main import bp
 def index():
     return "<h1>Hello IVR Team :)</h1>"
 
-
 @bp.route('/users')
 def users():
     return render_template('ajax_table.html', title='Users')

@@ -11,6 +11,11 @@ class User(db.Model):
           'username': self.username,
         }
 
+  def from_dict(self, data):
+    for field in ['username']:
+        if field in data:
+            setattr(self, field, data[field])
+
   def __repr__(self):
     return '<User {}>'.format(self.username)
 

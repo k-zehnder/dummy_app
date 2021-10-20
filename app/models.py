@@ -5,7 +5,12 @@ class User(db.Model):
   username = db.Column(db.String(124), unique=True, nullable=False)
   
   numbers = db.relationship('Number', backref='user', lazy='dynamic')
-  
+
+  def to_dict(self):
+    return {
+          'username': self.username,
+        }
+
   def __repr__(self):
     return '<User {}>'.format(self.username)
 
@@ -13,12 +18,24 @@ class User(db.Model):
 class Number(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   digits = db.Column(db.String(124), nullable=False, unique=False)
-# (??)timezone = db.Column(function for finding timezone from number)
 
   user_id = db.Column(db.ForeignKey('user.id'))
 
   def __repr__(self):
     return '<Number {}>'.format(self.digits)
+
+
+# class Task(db.Model):
+#   pass
+
+# class Order(db.Model):
+#   pass
+
+# class Product(db.Model):
+#   pass
+
+# class Notification(db.Model):
+#   pass
 
 # https://stackoverflow.com/questions/46430061/flask-database-migrations-on-heroku
 #

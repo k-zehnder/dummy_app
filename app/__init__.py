@@ -15,7 +15,10 @@ def create_app(config_class=Config):
     from app.main import bp as main_bp
     app.register_blueprint(main_bp)
 
+    from app.api import bp as api_bp
+    app.register_blueprint(api_bp)
+
     return app
 
-# extremely important
+# extremely important to go below to prevent circular imports
 from app import models

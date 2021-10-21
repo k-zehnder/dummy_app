@@ -19,7 +19,7 @@ def users_boot():
         "title": "username", # display as the table header's name
         "sortable": True,
     }]
-    return render_template('bootstrap_nonmiguel_table.html', title='Users', data=users, columns=columns)
+    return render_template('nomiguel.html', title='Users', data=users, columns=columns)
 
 @bp.route('/users')
 def users():

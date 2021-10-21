@@ -8,7 +8,20 @@ from app.main import bp
 def index():
     return "<h1>Hello IVR Team :)</h1>"
 
-@bp.route('/users')
+@bp.route('/users_boot')
+def users_boot():
+    users = User.query.all()
+    users = [user.to_dict() for user in users]
+    # other column settings -> http://bootstrap-table.wenzhixin.net.cn/documentation/#column-options
+    columns = [
+    {
+        "field": "username", # which is the field's name of data key 
+        "title": "username", # display as the table header's name
+        "sortable": True,
+    }]
+    return render_template('bootstrap_nonmiguel_table.html', title='Users', data=users, columns=columns)
+
+@bp.route('/users_ajax')
 def users():
     return render_template('ajax_table.html', title='Users')
 

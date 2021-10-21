@@ -7,12 +7,13 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container">
-      <h1>{{ title }}</h1>
-      <hr>
-    </div>
+        {# application content needs to be provided in the app_content block #}
+        {% block app_content %}{% endblock %}
 {% endblock %}
 
+
+{% block style %}
+{% endblock %}
 
 {% block scripts %}
     <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

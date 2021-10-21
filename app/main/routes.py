@@ -21,7 +21,7 @@ def users_boot():
     }]
     return render_template('bootstrap_nonmiguel_table.html', title='Users', data=users, columns=columns)
 
-@bp.route('/users_ajax')
+@bp.route('/users')
 def users():
     return render_template('ajax_table.html', title='Users')
 

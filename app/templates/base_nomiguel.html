@@ -1,6 +1,6 @@
-{% extends 'base_nomiguel.html' %}
-
-{% block head %}
+<!DOCTYPE html>
+<html>
+<head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta name="robots" content="noindex">
   <title>Bootstrap Table - Flask example </title>
@@ -18,27 +18,7 @@
       display: inline-block;
     }
   </style>
-{% endblock %}
 
-{% block content %}
-  <div class="container" style="padding: 10px; ">
-    <h1>{{title}}</h1>
-    <br/>
-    <div id="toolbar"></div>
-    <table
-      id="table"
-      data-toggle="true"
-      data-toolbar="#toolbar"
-      data-search="true"
-      data-show-columns="true"
-      data-pagination="true"
-      data-height="500">
-    </table>
-  </div>
-{% endblock %}
-
-
-{% block scripts %}
   <script type='text/javascript'>
     $(window).load(function(){
       var data = {{data|tojson}};
@@ -54,4 +34,21 @@
 
     });
   </script>
-{% endblock %}
+</head>
+<body>
+  <div class="container" style="padding: 10px; ">
+    <h1>{{title}}</h1>
+    <br/>
+    <div id="toolbar"></div>
+    <table
+      id="table"
+      data-toggle="true"
+      data-toolbar="#toolbar"
+      data-search="true"
+      data-show-columns="true"
+      data-pagination="true"
+      data-height="500">
+    </table>
+  </div>
+</body>
+</html>

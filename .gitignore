@@ -1,5 +1,7 @@
 # Packages
 __pycache__
+.DS_Store
+notes.txt
 
 # Mr Developer
 app.db

@@ -6,7 +6,7 @@ from app.main import bp
 
 @bp.route('/')
 def index():
-    return "<h1>Hello IVR Team :)</h1>"
+    return "<h1>Hello IVR Team :))</h1>"
 
 @bp.route('/users_boot')
 def users_boot():

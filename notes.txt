@@ -1,4 +1,13 @@
+###### Environment #####
 # env  
 # conda activate godo3.9
 
-FLASK_SECRET_KEY=os.environ.get("FLASK_SECRET_KEY", "some_secret")
+###### Querying #####
+>>> a = Admin.query.filter(Admin.name=="kevin").one()
+>>> a.name
+'kevin'
+# To get the object (this o in orm) you can use .first() or for many results .all()
+
+##### DATABASE ####
+- heroku wants postgres + "ql" added or else wont work in production
+- why weird behavior if I put index in attribute of model? What does that do?

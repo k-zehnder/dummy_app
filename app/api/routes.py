@@ -1,15 +1,18 @@
 from flask import jsonify, request, url_for, abort, current_app
+from flask_restx import Namespace, Resource, fields
 
 from app import db
 from app.models import User, Number
 from app.api import bp
-from flask_restplus import Namespace, Resource, fields
+from flask_restx import Namespace, Resource, fields
 from app.api import api
 
 cat = api.model('Cat', {
     'id': fields.String(required=True, description='The cat identifier'),
     'name': fields.String(required=True, description='The cat name'),
 })
+
+
 CATS = [
     {'id': 'felix', 'name': 'Felix'},
 ]
@@ -21,7 +24,6 @@ class CatList(Resource):
     def get(self):
         '''List all cats'''
         return CATS
-
 
 @bp.route('/users', methods=['GET'])
 def data():

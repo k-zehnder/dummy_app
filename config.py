@@ -13,3 +13,4 @@ class Config(object):
     #     'postgres://', 'postgresql://') or \
     #     'sqlite:///' + os.path.join(basedir, 'app.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SWAGGER_UI_DOC_EXPANSION = 'list'

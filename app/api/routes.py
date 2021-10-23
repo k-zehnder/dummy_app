@@ -12,7 +12,6 @@ cat = api.model('Cat', {
     'name': fields.String(required=True, description='The cat name'),
 })
 
-
 CATS = [
     {'id': 'felix', 'name': 'Felix'},
 ]

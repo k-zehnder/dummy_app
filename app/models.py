@@ -1,5 +1,10 @@
 from app import db
 
+class Admin(db.Model):
+  id = db.Column(db.Integer, primary_key=True)
+  name = db.Column(db.String(124), index=True, nullable=False, unique=True)
+  team = db.Column(db.String(124), nullable=True, unique=False)
+
 class User(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   username = db.Column(db.String(124), unique=True, nullable=False)

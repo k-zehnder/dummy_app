@@ -2,8 +2,19 @@ from app import db
 
 class Admin(db.Model):
   id = db.Column(db.Integer, primary_key=True)
-  name = db.Column(db.String(124), index=True, nullable=False, unique=True)
+  name = db.Column(db.String(124), nullable=False, unique=True)
   team = db.Column(db.String(124), nullable=True, unique=False)
+
+  def to_dict(self):
+    return {"name" : self.name}
+
+  def from_dict(self, input_dict):
+    for field in ["name", "team"]:
+      if field in input_dict:
+        setattr(self, field, input_dict[field])
+
+  def __repr__(self):
+    return f"<Admin {self.name}>"
 
 class User(db.Model):
   id = db.Column(db.Integer, primary_key=True)
@@ -12,9 +23,7 @@ class User(db.Model):
   numbers = db.relationship('Number', backref='user', lazy='dynamic')
 
   def to_dict(self):
-    return {
-          'username': self.username,
-        }
+    return {'username': self.username}
 
   def from_dict(self, data):
     for field in ['username']:
@@ -22,7 +31,7 @@ class User(db.Model):
             setattr(self, field, data[field])
 
   def __repr__(self):
-    return '<User {}>'.format(self.username)
+    return f"<User {self.username}>"
 
 
 class Number(db.Model):
@@ -32,7 +41,7 @@ class Number(db.Model):
   user_id = db.Column(db.ForeignKey('user.id'))
 
   def __repr__(self):
-    return '<Number {}>'.format(self.digits)
+    return f"<Number {self.digits}>"
 
 
 # class Task(db.Model):

@@ -1,10 +1,12 @@
-from flask import Flask
+from flask import Flask, request, current_app
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_bootstrap import Bootstrap
+from redis import Redis
+import rq
 from config import Config
 
-db = SQLAlchemy()
+db = SQLAlchemy(session_options={"autoflush": False})
 migrate = Migrate()
 bootstrap = Bootstrap()
 
@@ -14,6 +16,8 @@ def create_app(config_class=Config):
     db.init_app(app)
     migrate.init_app(app, db)
     bootstrap.init_app(app)
+    app.redis = Redis.from_url(app.config['REDIS_URL'])
+    app.task_queue = rq.Queue(connection=app.redis)
 
     from app.main import bp as main_bp
     app.register_blueprint(main_bp)
@@ -25,3 +29,4 @@ def create_app(config_class=Config):
 
 # extremely important to go below to prevent circular imports
 from app import models
+from .tasks import *

@@ -11,3 +11,4 @@ class Config(object):
         'sqlite:///' + os.path.join(basedir, 'app.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SWAGGER_UI_DOC_EXPANSION = 'list'
+    REDIS_URL = os.environ.get('REDIS_URL') or 'redis://'

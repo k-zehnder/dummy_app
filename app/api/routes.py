@@ -52,7 +52,6 @@ def bootstrap_table():
         "title": "name", # display as the table header's name
         "sortable": True,
     }]
-    #jdata=json.dumps(data)
     return render_template("boot_table_non_miguel.html",
       data=data,
       columns=columns,

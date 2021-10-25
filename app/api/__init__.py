@@ -2,7 +2,7 @@ from flask import Blueprint
 from flask_restx import Api, Namespace
 
 
-bp = Blueprint('api', __name__, url_prefix="/doc")
+bp = Blueprint('api', __name__)
 api = Api(bp, version='1.0', title='Todo API',
     description='A simple TODO API',
     default='API Default',

@@ -5,6 +5,9 @@ from flask_bootstrap import Bootstrap
 from redis import Redis
 import rq
 from config import Config
+import flask.scaffold
+flask.helpers._endpoint_from_view_func = flask.scaffold._endpoint_from_view_func
+import flask_restful
 
 db = SQLAlchemy(session_options={"autoflush": False})
 migrate = Migrate()

@@ -1,4 +1,4 @@
-from flask import jsonify, request, url_for, abort, current_app
+from flask import jsonify, request, url_for, abort, current_app, render_template
 from flask_restx import Namespace, Resource, fields
 
 from app import db
@@ -25,11 +25,11 @@ class CatList(Resource):
         return CATS
 
 @bp.route('/users', methods=['GET'])
-def data():
+def users_get():
     return {'data': [user.to_dict() for user in User.query]}
 
 @bp.route('/users', methods=['POST'])
-def create_user():
+def users_post():
     data = request.form.to_dict() or {}   
     user = User(username=data["username"])
     #user.from_dict(data)
@@ -38,6 +38,22 @@ def create_user():
     response = jsonify(user.to_dict())
     return response
 
-@bp.route('/users/<int:id>', methods=['GET'])
-def get_user(id):
+@bp.route('/get_user__by_id/<int:id>', methods=['GET'])
+def get_user_by_id(id):
     return jsonify(User.query.get_or_404(id).to_dict())
+
+@bp.route('/bootstrap_table')
+def bootstrap_table():
+    data = [user.to_dict() for user in User.query]
+    # other column settings -> http://bootstrap-table.wenzhixin.net.cn/documentation/#column-options
+    columns = [
+    {
+        "field": "username", # which is the field's name of data key 
+        "title": "name", # display as the table header's name
+        "sortable": True,
+    }]
+    #jdata=json.dumps(data)
+    return render_template("boot_table_non_miguel.html",
+      data=data,
+      columns=columns,
+      title='Flask Bootstrap Table')

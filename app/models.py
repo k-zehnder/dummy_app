@@ -74,19 +74,6 @@ class Task(db.Model):
         job = self.get_rq_job()
         return job.meta.get('progress', 0) if job is not None else 100
 
-
-# class Task(db.Model):
-#   pass
-
-# class Order(db.Model):
-#   pass
-
-# class Product(db.Model):
-#   pass
-
-# class Notification(db.Model):
-#   pass
-
 # https://stackoverflow.com/questions/46430061/flask-database-migrations-on-heroku
 #
   # You actually want to do flask db init and flask db migrate locally. Commit the results to your git repo. Then on Heroku, you only do the heroku run flask db upgrade

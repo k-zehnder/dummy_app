@@ -56,3 +56,7 @@ def bootstrap_table():
       data=data,
       columns=columns,
       title='Flask Bootstrap Table')
+
+@bp.route('/users_ajax')
+def users():
+    return render_template('ajax_table.html', title='Users')

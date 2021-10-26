@@ -9,10 +9,22 @@ from app.main import bp
 def index():
     admin = Admin.query.first()
     admin.launch_task(name="test_task", description="desc")
-    print([i.complete for i in admin.tasks])
-    return f"<h1>Hello IVR Team :))</h1>"
+    routes = [
+        {"id" : 1,
+        "description" : "homepage with topology of routes",
+        "blueprint" : "main",
+        "link" : "main.index"},
+       {"id" : 2,
+        "description" : "flask-restx fully documented API",
+        "blueprint" : "api",
+        "link" : "api.doc"}
+    ]
+    return render_template('index.html', route_info=routes)
 
-@bp.route('/users_ajax')
-def users():
-    return render_template('ajax_table.html', title='Users')
-
+# @bp.route('/')
+# def index():
+#     admin = Admin.query.first()
+#     admin.launch_task(name="test_task", description="desc")
+#     print([i.complete for i in admin.tasks])
+#     # return render_template('index.html')
+#     return make_response("<h1>Hello IVR Team:))</h1>")

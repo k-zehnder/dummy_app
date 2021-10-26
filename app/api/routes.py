@@ -39,6 +39,10 @@ class UsersList(Resource):
         '''List all users'''
         return User.query.all()
 
+    def post(self):
+        pass
+
+
 @bp.route('/users', methods=['GET'])
 def users_get():
     return {'data': [user.to_dict() for user in User.query]}

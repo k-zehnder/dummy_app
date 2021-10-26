@@ -12,9 +12,16 @@ cat = api.model('Cat', {
     'name': fields.String(required=True, description='The cat name'),
 })
 
+
 CATS = [
     {'id': 'felix', 'name': 'Felix'},
 ]
+
+user = api.model('User', {
+    'id': fields.String(required=True, description='The user identifier'),
+    'username': fields.String(required=True, description='The username'),
+})
+
 
 @api.route('/cats')
 class CatList(Resource):
@@ -23,6 +30,14 @@ class CatList(Resource):
     def get(self):
         '''List all cats'''
         return CATS
+
+@api.route('/users')
+class UsersList(Resource):
+    @api.doc('list_users')
+    @api.marshal_list_with(user)
+    def get(self):
+        '''List all users'''
+        return User.query.all()
 
 @bp.route('/users', methods=['GET'])
 def users_get():

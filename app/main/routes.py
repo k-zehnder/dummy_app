@@ -1,22 +1,15 @@
 from flask import render_template
 
 from app import db
-from app.models import Admin, User, Number, Task
+from app.models import Admin, User, Number, Task, ViewCount
 from app.main import bp
-from multiprocessing import Value
 
-counter = Value('i', 0)
 
 @bp.route('/')
 def index():
-    # NOTE: this is broken. "resets" on each user session I think.
-    with counter.get_lock():
-        counter.value += 1
-        # save the value ASAP rather than passing to jsonify
-        # to keep lock time short
-        unique_count = counter.value
     admin = Admin.query.first()
-    admin.launch_task(name="test_task", description="desc")
+    admin.launch_task(name="increment_viewcount", description="increment view counter += 1")
+    counter = admin.views.counts
     routes = [
         {"id" : 1,
         "description" : "homepage with topology of routes",
@@ -27,7 +20,7 @@ def index():
         "blueprint" : "api",
         "link" : "api.doc"}
     ]
-    return render_template('index.html', route_info=routes, counter=unique_count)
+    return render_template('index.html', route_info=routes, counter=counter)
 
 
 @bp.route('/test_route')

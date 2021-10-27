@@ -33,3 +33,15 @@ def test_task(admin_id): #self.id
     _set_task_progress(100)
     print(f"test complete? {test.complete}")
 
+def increment_viewcount(admin_id): #self.id
+    admin = Admin.query.filter(Admin.id==admin_id).first()
+    print(f"current views? {admin.views.counts}")
+    admin.views.counts += 1
+    total = 3
+    for i in range(total):
+        print(f"progress: {100 * i // total}")
+        time.sleep(2)
+        _set_task_progress(100 * i // total)
+    db.session.commit()
+    _set_task_progress(100)
+    print(f"test complete? {admin.views.counts}")

@@ -4,12 +4,16 @@ import rq
 import redis
 
 
+
 class Admin(db.Model):
   id = db.Column(db.Integer, nullable=False, primary_key=True)
   name = db.Column(db.String(124), nullable=False, unique=True)
   team = db.Column(db.String(124), nullable=True, unique=False)
   
+  # one to many admin to tasks
   tasks = db.relationship('Task', backref='admin',lazy='dynamic')
+  # one to one admin to views
+  views = db.relationship('ViewCount', uselist=False, backref='Admin')
 
   def launch_task(self, name, description, *args, **kwargs):
       rq_job = current_app.task_queue.enqueue(f'app.tasks.{name}', self.id, *args, **kwargs)
@@ -29,6 +33,15 @@ class Admin(db.Model):
 
   def __repr__(self):
     return f"<Admin {self.name}>"
+
+# one-to-one Admin to ViewCount
+class ViewCount(db.Model):
+  id = db.Column(db.Integer, primary_key=True)
+  counts = db.Column(db.Integer, default=0)
+  admin_id = db.Column(db.Integer, db.ForeignKey('admin.id'))
+
+  def __repr__(self):
+    return f"<Counts {self.counts}>"
 
 class User(db.Model):
   id = db.Column(db.Integer, nullable=False, primary_key=True)

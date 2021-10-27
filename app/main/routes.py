@@ -9,6 +9,7 @@ counter = Value('i', 0)
 
 @bp.route('/')
 def index():
+    # NOTE: this is broken. "resets" on each user session I think.
     with counter.get_lock():
         counter.value += 1
         # save the value ASAP rather than passing to jsonify
@@ -27,3 +28,8 @@ def index():
         "link" : "api.doc"}
     ]
     return render_template('index.html', route_info=routes, counter=unique_count)
+
+
+@bp.route('/test_route')
+def test_route():
+    return render_template("test.html")
